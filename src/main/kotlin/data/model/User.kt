@@ -1,4 +1,4 @@
-package data
+package data.model
 
 object UserData {
     data class User(
