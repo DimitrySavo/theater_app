@@ -1,5 +1,6 @@
 
 
+import ViewModel.ViewModel
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
@@ -16,20 +17,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import ui.theme.*
 import ui.views.mainScreen
+import javax.swing.text.View
 
 
 @Composable
 @Preview
-fun App() {
-    mainScreen()
+fun App(viewModel: ViewModel) {
+    mainScreen(viewModel)
 }
 
 fun main() = application {
+    val viewModel = ViewModel()
+
     val state = rememberWindowState(
         position = WindowPosition.Aligned(Alignment.Center),
         size = WindowSize(1200.dp, 800.dp)
     )
     Window(onCloseRequest = ::exitApplication, state = state) {
-        App()
+        App(viewModel)
     }
 }

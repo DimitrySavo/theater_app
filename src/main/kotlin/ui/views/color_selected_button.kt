@@ -35,14 +35,16 @@ fun color_selected_button(
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth().then(modifier),
-        shape = RoundedCornerShape(50),
+        shape = RoundedCornerShape(40),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if(currentIndex == index) color else transparent,
             contentColor = if(currentIndex == index) white else black
         ),
         elevation = ButtonDefaults.elevation(
             defaultElevation = if(currentIndex == index) 8.dp else 0.dp,
-            hoveredElevation = 0.dp),
+            hoveredElevation = 0.dp,
+            focusedElevation = 0.dp,
+            pressedElevation = 0.dp)
     ){
         Box() {
             Icon(icon, "", modifier = Modifier.padding(start = 5.dp))

@@ -1,5 +1,6 @@
 package ui.views
 import ViewModel.UIState
+import ViewModel.ViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -10,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import ui.theme.*
 
 @Composable
-fun mainScreen() {
+fun mainScreen(viewModel: ViewModel) {
     var currentUIState = UIState.state.value
 
     Row(modifier = Modifier.fillMaxSize().background(white)) {
@@ -30,7 +31,7 @@ fun mainScreen() {
         ) {
             when (currentUIState) {
                 UIState.PROFILE -> {
-                    profileUnregister()
+                    profileUnregister(viewModel)
                 }
                 UIState.POSTER -> { Text("Poster") }
                 UIState.REPERTOIRE -> {}

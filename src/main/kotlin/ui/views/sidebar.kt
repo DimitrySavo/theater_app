@@ -32,11 +32,6 @@ fun sidebar() {
         mutableStateOf(1)
     }
 
-    val chosenColor by animateColorAsState(
-        targetValue = velvetRed,
-        animationSpec = tween(durationMillis = 3000, easing = LinearOutSlowInEasing)
-    )
-
     Box(
         modifier = Modifier.fillMaxSize(),
     ){
@@ -45,16 +40,16 @@ fun sidebar() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             color_selected_button(modifier = Modifier, index = 1,
-                color = chosenColor, onClick = { indexPicked = 1; UIState.changeToProfile()}, indexPicked, Icons.Default.Person, text = "Profile")
+                color = velvetRed, onClick = { indexPicked = 1; UIState.changeToProfile()}, indexPicked, Icons.Default.Person, text = "Profile")
 
 
             Spacer(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 24.dp, start = 10.dp, end = 10.dp).height(1.dp).background(halfTransparent))
 
             color_selected_button(modifier = Modifier, index = 2,
-                color = chosenColor, onClick = { indexPicked = 2; UIState.changeToPoster() }, indexPicked, Icons.Default.Menu, text = "Poster")
+                color = velvetRed, onClick = { indexPicked = 2; UIState.changeToPoster() }, indexPicked, Icons.Default.Menu, text = "Poster")
 
             color_selected_button(modifier = Modifier, index = 3,
-                color = chosenColor, onClick = { indexPicked = 3; UIState.changeToRepertoire() }, indexPicked, Icons.Default.Settings, text = "Repertoire")
+                color = velvetRed, onClick = { indexPicked = 3; UIState.changeToRepertoire() }, indexPicked, Icons.Default.Settings, text = "Repertoire")
         }
     }
 }
