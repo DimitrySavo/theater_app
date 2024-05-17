@@ -1,10 +1,7 @@
 package ui.views
 
 import ViewModel.ViewModel
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -15,8 +12,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import data.Benefits
 import ui.theme.halfTransparent
 import ui.theme.velvetRed
+
 
 @Composable
 fun SignUpDialog(viewModel: ViewModel, title: String = "", onDismiss: () -> Unit) {
@@ -25,7 +24,8 @@ fun SignUpDialog(viewModel: ViewModel, title: String = "", onDismiss: () -> Unit
     Dialog(onDismissRequest = onDismiss) {
         Card(
             modifier = Modifier
-                .padding(vertical = 30.dp),
+                .padding(vertical = 30.dp)
+                .requiredHeight(800.dp),
             shape = RoundedCornerShape(10.dp),
         ) {
             Column(
@@ -58,7 +58,9 @@ fun SignUpDialog(viewModel: ViewModel, title: String = "", onDismiss: () -> Unit
                 outlined_text_field(placeholder = "Password", value = viewModel.userState.password,
                     onValueChange = { newValue -> viewModel.changePassword(newValue) })
 
-                DropdownMenu_text_field(listOf("Метод", "Метод 1", "Метод 2"))
+                val benefits = Benefits.entries.map { it.name }
+
+                DropdownMenu_text_field(benefits) { newValue -> viewModel.changeBenefit(newValue) }
 
                 color_selected_button(
                     text = "Зарегистироваться",

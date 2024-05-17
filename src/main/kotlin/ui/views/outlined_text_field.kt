@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import data.Constants
 import ui.theme.black
 import ui.theme.green
 import ui.theme.velvetRed
@@ -24,7 +25,8 @@ fun outlined_text_field(value: String ,onValueChange: (String) -> Unit, placehol
     OutlinedTextField(
         value = value,
         onValueChange = {
-            onValueChange(it)
+            if(it.length <= Constants.MAX_TEXT_FIELD_LENGTH)
+                onValueChange(it)
         },
         modifier = Modifier
             .padding(horizontal = 40.dp, vertical = 0.dp)
@@ -38,7 +40,9 @@ fun outlined_text_field(value: String ,onValueChange: (String) -> Unit, placehol
         ),
         label = {
                 Text(placeholder, color = black)
-        }
+        },
+        singleLine = true,
+
     )
 }
 

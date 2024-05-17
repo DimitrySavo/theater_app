@@ -3,6 +3,7 @@ package ViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import data.Benefits
 import data.model.User
 
 class ViewModel {
@@ -31,6 +32,17 @@ class ViewModel {
 
     fun changePhone(newValue: String) {
         userState = userState.copy(mobilePhone = newValue)
+    }
+
+    fun changeBenefit(newValue: String) {
+        when(newValue)
+        {
+            Benefits.STUDENT.name -> userState = userState.copy(benefit = Benefits.STUDENT)
+            Benefits.PENSIONER.name -> userState = userState.copy(benefit = Benefits.PENSIONER)
+            Benefits.VETERAN.name -> userState = userState.copy(benefit = Benefits.VETERAN)
+            Benefits.DISABLED.name -> userState = userState.copy(benefit = Benefits.DISABLED)
+            else -> userState = userState.copy(benefit = Benefits.REGULAR)
+        }
     }
 
 }
