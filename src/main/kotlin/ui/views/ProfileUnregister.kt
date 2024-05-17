@@ -22,8 +22,14 @@ import javax.swing.text.View
 fun profileUnregister(viewModel: ViewModel) {
     var isSignIn by remember { mutableStateOf(false) }
 
+    var isSignUp by remember { mutableStateOf(false) }
+
     if(isSignIn){
-        SignInDialog(viewModel)
+        SignInDialog(viewModel, "Войти"){ isSignIn = false }
+    }
+
+    if(isSignUp){
+        SignUpDialog(viewModel, "Зарегистрироваться"){ isSignUp = false }
     }
 
     Box(
@@ -53,7 +59,9 @@ fun profileUnregister(viewModel: ViewModel) {
                 )
 
                 link_button(
-                    onClick = { println("register") },
+                    onClick = {
+                        isSignUp = true
+                    },
                     text = "Зарегистрироваться",
                     modifier = Modifier.padding(start = 50.dp, top = 20.dp)
                 )

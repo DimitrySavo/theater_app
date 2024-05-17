@@ -1,10 +1,7 @@
 package ui.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -30,7 +27,7 @@ fun color_selected_button(
     color: Color,
     onClick: () -> Unit,
     currentIndex: Int,
-    icon: ImageVector,
+    icon: ImageVector?,
     text: String) {
     Button(
         onClick = onClick,
@@ -46,8 +43,10 @@ fun color_selected_button(
             focusedElevation = 0.dp,
             pressedElevation = 0.dp)
     ){
-        Box() {
-            Icon(icon, "", modifier = Modifier.padding(start = 5.dp))
+        Row(verticalAlignment = Alignment.CenterVertically
+        ) {
+            if(icon != null)
+                Icon(icon, "", modifier = Modifier.padding(start = 5.dp))
             Text(text = text, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
         }
     }
