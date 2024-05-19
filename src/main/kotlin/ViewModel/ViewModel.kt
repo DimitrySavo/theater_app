@@ -1,9 +1,11 @@
 package ViewModel
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import data.Benefits
+import data.Constants
 import data.model.User
 
 class ViewModel {
@@ -35,14 +37,19 @@ class ViewModel {
     }
 
     fun changeBenefit(newValue: String) {
-        when(newValue)
-        {
-            Benefits.STUDENT.name -> userState = userState.copy(benefit = Benefits.STUDENT)
-            Benefits.PENSIONER.name -> userState = userState.copy(benefit = Benefits.PENSIONER)
-            Benefits.VETERAN.name -> userState = userState.copy(benefit = Benefits.VETERAN)
-            Benefits.DISABLED.name -> userState = userState.copy(benefit = Benefits.DISABLED)
-            else -> userState = userState.copy(benefit = Benefits.REGULAR)
+        userState = when(newValue) {
+            Benefits.STUDENT.nameBenefits -> userState.copy(benefit = Benefits.STUDENT)
+            Benefits.PENSIONER.nameBenefits -> userState.copy(benefit = Benefits.PENSIONER)
+            Benefits.VETERAN.nameBenefits -> userState.copy(benefit = Benefits.VETERAN)
+            Benefits.DISABLED.nameBenefits -> userState.copy(benefit = Benefits.DISABLED)
+            Benefits.KID.nameBenefits -> userState.copy(benefit = Benefits.KID)
+            else -> userState.copy(benefit = Benefits.VETERAN)
         }
     }
+
+    fun changeUser(newUser: User) {
+        userState = newUser
+    }
+
 
 }

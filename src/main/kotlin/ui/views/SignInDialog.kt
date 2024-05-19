@@ -6,7 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -14,14 +16,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import data.model.CurrentUser
 import data.model.User
 import ui.theme.black
+import ui.theme.green
 import ui.theme.halfTransparent
 import ui.theme.velvetRed
 
 @Composable
 fun SignInDialog(viewModel: ViewModel, title: String = "", onDismiss: () -> Unit) {
 
+    var isWrongPassword by remember { mutableStateOf(false) }
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
@@ -42,13 +47,44 @@ fun SignInDialog(viewModel: ViewModel, title: String = "", onDismiss: () -> Unit
                 )
 
                 outlined_text_field(placeholder = "Email", value = viewModel.userState.email,
-                    onValueChange = { newValue -> viewModel.changeEmail(newValue) })
-                outlined_text_field(placeholder = "Password", value = viewModel.userState.password,
-                    onValueChange = { newValue -> viewModel.changePassword(newValue) })
+                    onValueChange = { newValue -> viewModel.changeEmail(newValue) }, checker = User::checkExistEmail, errorText = "No such user with this email")
+                Column(
+                    modifier = Modifier.padding(horizontal = 40.dp, vertical = 0.dp).fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = viewModel.userState.password,
+                        onValueChange = { newValue -> viewModel.changePassword(newValue) },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = velvetRed,
+                            cursorColor = velvetRed,
+                        ),
+                        label = {
+                            Text("Пароль", color = black)
+                        },
+                        singleLine = true,
+                    )
+                    if (isWrongPassword) {
+                        Text(
+                            text = "Wrong password",
+                            color = green,
+                            modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+                        )
+                    }
+                }
 
                 color_selected_button(
                     text = "Войти",
-                    onClick = { },
+                    onClick = {
+                        if(User.executeCheckUser(viewModel.userState.password, viewModel.userState.email)) {
+                            isWrongPassword = false
+                            User.fillUserAfterEnter(viewModel.userState.email, viewModel.userState.password)
+                            viewModel.changeUser(CurrentUser.user)
+                            onDismiss()
+                        } else {
+                            isWrongPassword = true
+                        }
+                    },
                     modifier = Modifier
                         .padding(horizontal = 20.dp)
                         .fillMaxWidth(),

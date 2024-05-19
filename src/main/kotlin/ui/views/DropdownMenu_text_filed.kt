@@ -28,7 +28,6 @@ fun DropdownMenu_text_field(elements: List<String>, onValuesChanged: (String) ->
             value = selectedText,
             onValueChange = {
                 selectedText = it
-                onValuesChanged(it)
             },
             label = { Text("Льгота") },
             trailingIcon = {
@@ -51,6 +50,7 @@ fun DropdownMenu_text_field(elements: List<String>, onValuesChanged: (String) ->
                 DropdownMenuItem(
                     onClick = {
                         selectedText = text
+                        onValuesChanged(selectedText)
                         isExpanded = false
                     }
                 ) {

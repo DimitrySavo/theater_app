@@ -42,7 +42,6 @@ fun sidebar() {
             color_selected_button(modifier = Modifier, index = 1,
                 color = velvetRed, onClick = { indexPicked = 1; UIState.changeToProfile()}, indexPicked, Icons.Default.Person, text = "Profile")
 
-
             Spacer(Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 24.dp, start = 10.dp, end = 10.dp).height(1.dp).background(halfTransparent))
 
             color_selected_button(modifier = Modifier, index = 2,

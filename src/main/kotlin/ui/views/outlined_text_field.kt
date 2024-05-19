@@ -1,6 +1,8 @@
 package ui.views
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.OutlinedTextField
@@ -19,35 +21,44 @@ import ui.theme.velvetRed
 
 @Preview
 @Composable
-fun outlined_text_field(value: String ,onValueChange: (String) -> Unit, placeholder: String) {
-    var isFocused by remember { mutableStateOf(false) }
+fun outlined_text_field(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: String,
+    checker: (String) -> Boolean,
+    errorText: String,
+    isReadOnly:  Boolean = false
+) {
+    var isError by remember { mutableStateOf(false) }
 
-    OutlinedTextField(
-        value = value,
-        onValueChange = {
-            if(it.length <= Constants.MAX_TEXT_FIELD_LENGTH)
-                onValueChange(it)
-        },
-        modifier = Modifier
-            .padding(horizontal = 40.dp, vertical = 0.dp)
-            .fillMaxWidth()
-            .onFocusChanged { focusState ->
-                isFocused = focusState.isFocused
+    Column(modifier = Modifier.padding(horizontal = 40.dp, vertical = 0.dp).fillMaxWidth()) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = {
+                isError = !checker(it)
+                if (it.length <= Constants.MAX_TEXT_FIELD_LENGTH)
+                    onValueChange(it)
             },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = velvetRed,
-            cursorColor = velvetRed
-        ),
-        label = {
+            modifier = Modifier
+                .fillMaxWidth(),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = velvetRed,
+                cursorColor = velvetRed,
+            ),
+            label = {
                 Text(placeholder, color = black)
-        },
-        singleLine = true,
-
-    )
+            },
+            singleLine = true,
+            readOnly = isReadOnly
+        )
+        if (isError) {
+            Text(text = errorText, color = green)
+        }
+    }
 }
 
 @Preview
 @Composable
 fun preview() {
-   // outlined_text_field(onValueChange = {}, "hello")
+    // outlined_text_field(onValueChange = {}, "hello")
 }
