@@ -47,6 +47,7 @@ fun BuyTicketDialog(initialCost: Double, onDismiss: () -> Unit, title: String, v
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.padding(horizontal = 20.dp)
             ) {
                 outlined_text_field(
                     placeholder = "Имя",
@@ -102,7 +103,7 @@ fun BuyTicketDialog(initialCost: Double, onDismiss: () -> Unit, title: String, v
 
                 color_selected_button(
                     text = "Купить",
-                    color = green,
+                    color = velvetRed,
                     onClick = {
                         if (CurrentUser.user.email != "") {
                             TicketSupport.buyTicket(
@@ -126,7 +127,7 @@ fun BuyTicketDialog(initialCost: Double, onDismiss: () -> Unit, title: String, v
                         }
                         onDismiss()
                     },
-                    currentIndex = 0,
+                    currentIndex = 1,
                     icon = null
                 )
 

@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -48,7 +49,7 @@ fun sidebar() {
                 color = velvetRed, onClick = { indexPicked = 2; UIState.changeToPoster() }, indexPicked, Icons.Default.Menu, text = "Poster")
 
             color_selected_button(modifier = Modifier, index = 3,
-                color = velvetRed, onClick = { indexPicked = 3; UIState.changeToRepertoire() }, indexPicked, Icons.Default.Settings, text = "Repertoire")
+                color = velvetRed, onClick = { indexPicked = 3; UIState.changeToRepertoire() }, indexPicked, Icons.Default.PlayArrow, text = "Repertoire")
         }
     }
 }

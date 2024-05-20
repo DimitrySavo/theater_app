@@ -194,7 +194,6 @@ data class User(
                     newUser.id = lastClient
 
                     CurrentUser.changeUser(newUser)
-
                     return true
                 } else {
                     println("User not added")

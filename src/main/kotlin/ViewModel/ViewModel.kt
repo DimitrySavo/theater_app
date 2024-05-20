@@ -50,6 +50,4 @@ class ViewModel {
     fun changeUser(newUser: User) {
         userState = newUser
     }
-
-
 }
